@@ -20,6 +20,7 @@ import com.flipkart.android.proteus.parser.IncludeParser;
 import com.flipkart.android.proteus.parser.ViewParser;
 import com.flipkart.android.proteus.parser.custom.ButtonParser;
 import com.flipkart.android.proteus.parser.custom.CheckBoxParser;
+import com.flipkart.android.proteus.parser.custom.ConstraintLayoutParser;
 import com.flipkart.android.proteus.parser.custom.EditTextParser;
 import com.flipkart.android.proteus.parser.custom.FrameLayoutParser;
 import com.flipkart.android.proteus.parser.custom.HorizontalProgressBarParser;
@@ -63,6 +64,7 @@ public class ProteusBuilder {
       builder.register(new ViewParser());
       builder.register(new IncludeParser());
       builder.register(new ViewGroupParser());
+      builder.register(new ConstraintLayoutParser());
       builder.register(new RelativeLayoutParser());
       builder.register(new LinearLayoutParser());
       builder.register(new FrameLayoutParser());
