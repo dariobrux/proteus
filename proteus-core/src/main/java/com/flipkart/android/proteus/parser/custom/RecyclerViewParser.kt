@@ -109,7 +109,7 @@ class RecyclerViewParser<T : RecyclerView>(private val onRecyclerViewParserListe
             if (view.layoutManager is LinearLayoutManager) {
                 (view.layoutManager as LinearLayoutManager).orientation = orientation
             }
-            view.adapter = onRecyclerViewParserListener?.getRecyclerViewAdapter(layoutId, itemCount) //AdapterProteusRecyclerViewAdapter(view.context, layoutId, itemCount)
+            view.adapter = onRecyclerViewParserListener?.getRecyclerViewAdapter(layoutId, itemCount)
         }
     }
 }
