@@ -76,7 +76,6 @@ android {
         implementation project(':proteus-core')
         implementation project(':gson-adapter')
         implementation project(':support-v4')
-        implementation project(':recyclerview-v7')
         implementation project(':cardview-v7')
         implementation project(':design')
     }

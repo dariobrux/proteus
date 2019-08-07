@@ -241,4 +241,13 @@ public class Attributes
         public static final String IndeterminateTint = "indeterminateTint";
         public static final String SecondaryProgressTint = "secondaryProgressTint";
     }
+
+    public static class RecyclerView
+    {
+        public static final String OverScrollMode = "overScrollMode";
+        public static final String LayoutManager = "layoutManager";
+        public static final String Orientation = "orientation";
+        public static final String ListItem = "listitem";
+        public static final String ItemCount = "itemCount";
+    }
 }

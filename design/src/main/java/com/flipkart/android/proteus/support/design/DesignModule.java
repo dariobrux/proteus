@@ -17,6 +17,7 @@
 package com.flipkart.android.proteus.support.design;
 
 import com.flipkart.android.proteus.ProteusBuilder;
+import com.flipkart.android.proteus.parser.custom.RecyclerViewParser;
 import com.flipkart.android.proteus.support.design.widget.AppBarLayoutParser;
 import com.flipkart.android.proteus.support.design.widget.BottomNavigationViewParser;
 import com.flipkart.android.proteus.support.design.widget.CollapsingToolbarLayoutParser;
@@ -29,23 +30,26 @@ import com.flipkart.android.proteus.support.design.widget.FloatingActionButtonPa
  * @author adityasharat
  */
 
-public class DesignModule implements ProteusBuilder.Module {
+public class DesignModule implements ProteusBuilder.Module
+{
 
-  private DesignModule() {
-  }
+    private DesignModule()
+    {
+    }
 
-  public static DesignModule create() {
-    return new DesignModule();
-  }
+    public static DesignModule create()
+    {
+        return new DesignModule();
+    }
 
-  @Override
-  public void registerWith(ProteusBuilder builder) {
-    builder.register(new AppBarLayoutParser());
-    builder.register(new BottomNavigationViewParser());
-    builder.register(new CollapsingToolbarLayoutParser());
-    builder.register(new CoordinatorLayoutParser());
-    builder.register(new FloatingActionButtonParser());
-    DesignModuleAttributeHelper.register(builder);
-  }
-
+    @Override
+    public void registerWith(ProteusBuilder builder, RecyclerViewParser.OnRecyclerViewParserListener listener)
+    {
+        builder.register(new AppBarLayoutParser());
+        builder.register(new BottomNavigationViewParser());
+        builder.register(new CollapsingToolbarLayoutParser());
+        builder.register(new CoordinatorLayoutParser());
+        builder.register(new FloatingActionButtonParser());
+        DesignModuleAttributeHelper.register(builder);
+    }
 }
