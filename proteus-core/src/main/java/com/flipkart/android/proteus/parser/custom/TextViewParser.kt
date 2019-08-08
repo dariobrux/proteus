@@ -189,13 +189,6 @@ class TextViewParser<T : TextView> : ViewTypeParser<T>() {
             }
         })
 
-        addAttributeProcessor(Attributes.TextView.TextStyle, object : StringAttributeProcessor<T>() {
-            override fun setString(view: T, value: String) {
-                val typeface = ParseHelper.parseTextStyle(value)
-                view.typeface = Typeface.defaultFromStyle(typeface)
-            }
-        })
-
         addAttributeProcessor(Attributes.TextView.SingleLine, object : BooleanAttributeProcessor<T>() {
             override fun setBoolean(view: T, value: Boolean) {
                 view.setSingleLine(value)
@@ -217,5 +210,35 @@ class TextViewParser<T : TextView> : ViewTypeParser<T>() {
                 view.includeFontPadding = value
             }
         })
+        var fontFamily: String? = null
+        var textStyle: String? = null
+        addAttributeProcessor(Attributes.TextView.FontFamily, object : StringAttributeProcessor<T>() {
+            override fun setString(view: T, value: String?) {
+                fontFamily = value
+                setFontFamilyStyle(view, fontFamily, textStyle)
+            }
+        })
+        addAttributeProcessor(Attributes.TextView.TextStyle, object : StringAttributeProcessor<T>() {
+            override fun setString(view: T, value: String) {
+                textStyle = value
+                setFontFamilyStyle(view, fontFamily, textStyle)
+            }
+        })
+    }
+    
+    /**
+     * When the fontFamily and textStyle attributes are declared together in layout,
+     * the style of the text must be handled considering both.
+     */
+    private fun setFontFamilyStyle(view: T, fontFamily: String?, textStyle: String?) {
+        if (textStyle == null && fontFamily != null) {
+            view.typeface = Typeface.create(fontFamily, Typeface.NORMAL)
+        } else if (textStyle != null && fontFamily == null) {
+            val typeface = ParseHelper.parseTextStyle(textStyle)
+            view.typeface = Typeface.defaultFromStyle(typeface)
+        } else if (textStyle != null && fontFamily != null) {
+            val typeface = ParseHelper.parseTextStyle(textStyle)
+            view.typeface = Typeface.create(fontFamily, typeface)
+        }
     }
 }

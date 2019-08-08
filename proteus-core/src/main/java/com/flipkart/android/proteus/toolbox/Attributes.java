@@ -184,6 +184,7 @@ public class Attributes
         public static final String SingleLine = "singleLine";
         public static final String TextAllCaps = "textAllCaps";
         public static final String Hint = "hint";
+        public static final String FontFamily = "fontFamily";
     }
 
     public static class CheckBox
