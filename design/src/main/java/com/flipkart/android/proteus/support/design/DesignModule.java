@@ -17,7 +17,6 @@
 package com.flipkart.android.proteus.support.design;
 
 import com.flipkart.android.proteus.ProteusBuilder;
-import com.flipkart.android.proteus.parser.custom.RecyclerViewParser;
 import com.flipkart.android.proteus.support.design.widget.AppBarLayoutParser;
 import com.flipkart.android.proteus.support.design.widget.BottomNavigationViewParser;
 import com.flipkart.android.proteus.support.design.widget.CollapsingToolbarLayoutParser;
@@ -43,7 +42,7 @@ public class DesignModule implements ProteusBuilder.Module
     }
 
     @Override
-    public void registerWith(ProteusBuilder builder, RecyclerViewParser.OnRecyclerViewParserListener listener)
+    public void registerWith(ProteusBuilder builder)
     {
         builder.register(new AppBarLayoutParser());
         builder.register(new BottomNavigationViewParser());

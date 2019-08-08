@@ -17,7 +17,6 @@
 package com.flipkart.android.proteus.support.v4;
 
 import com.flipkart.android.proteus.ProteusBuilder;
-import com.flipkart.android.proteus.parser.custom.RecyclerViewParser;
 import com.flipkart.android.proteus.support.v4.view.ViewPagerParser;
 
 /**
@@ -39,7 +38,7 @@ public class SupportV4Module implements ProteusBuilder.Module
     }
 
     @Override
-    public void registerWith(ProteusBuilder builder, RecyclerViewParser.OnRecyclerViewParserListener listener)
+    public void registerWith(ProteusBuilder builder)
     {
         builder.register(new ViewPagerParser());
     }

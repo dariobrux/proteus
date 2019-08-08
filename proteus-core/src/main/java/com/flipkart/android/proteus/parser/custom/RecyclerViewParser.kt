@@ -34,10 +34,10 @@ import com.flipkart.android.proteus.view.adapters.ProteusRecyclerViewAdapter
 /**
  * Created by Dario Brux on 02/08/2019.
  */
-class RecyclerViewParser<T : RecyclerView>(private val onRecyclerViewParserListener: OnRecyclerViewParserListener?) : ViewTypeParser<T>() {
+class RecyclerViewParser<T : RecyclerView>(private val onRecyclerViewCallback: OnRecyclerCallback?) : ViewTypeParser<T>() {
 
-    interface OnRecyclerViewParserListener {
-        fun getRecyclerViewAdapter(layoutId: Int, itemCount: Int): ProteusRecyclerViewAdapter<*>?
+    interface OnRecyclerCallback {
+        fun getRecyclerViewAdapter(itemCount: Int): ProteusRecyclerViewAdapter<*>?
     }
 
     override fun getType(): String {
@@ -56,7 +56,6 @@ class RecyclerViewParser<T : RecyclerView>(private val onRecyclerViewParserListe
         var layoutManager: RecyclerView.LayoutManager? = null
         var orientation: Int? = null
         var itemCount: Int? = null
-        var layoutId: Int? = null
         addAttributeProcessor(Attributes.RecyclerView.OverScrollMode, object : StringAttributeProcessor<T>() {
             override fun setString(view: T, value: String) {
                 view.overScrollMode = when (value) {
@@ -71,7 +70,7 @@ class RecyclerViewParser<T : RecyclerView>(private val onRecyclerViewParserListe
                 if ("androidx.recyclerview.widget.LinearLayoutManager" == value) {
                     layoutManager = LinearLayoutManager(view.context)
                 }
-                setRecyclerAdapterIfNotNull(view, layoutManager, orientation, layoutId, itemCount)
+                setRecyclerAdapterIfNotNull(view, layoutManager, orientation, itemCount)
             }
         })
         addAttributeProcessor(Attributes.RecyclerView.Orientation, object : StringAttributeProcessor<T>() {
@@ -81,35 +80,24 @@ class RecyclerViewParser<T : RecyclerView>(private val onRecyclerViewParserListe
                 } else {
                     RecyclerView.VERTICAL
                 }
-                setRecyclerAdapterIfNotNull(view, layoutManager, orientation, layoutId, itemCount)
+                setRecyclerAdapterIfNotNull(view, layoutManager, orientation, itemCount)
             }
         })
         addAttributeProcessor(Attributes.RecyclerView.ItemCount, object : NumberAttributeProcessor<T>() {
             override fun setNumber(view: T, value: Number) {
                 itemCount = value.toInt()
-                setRecyclerAdapterIfNotNull(view, layoutManager, orientation, layoutId, itemCount)
-            }
-        })
-        addAttributeProcessor(Attributes.RecyclerView.ListItem, object : StringAttributeProcessor<T>() {
-            override fun setString(view: T, value: String) {
-                if (value.startsWith("@")) {
-                    val split = value.split("/")
-                    if (split.size == 2) {
-                        layoutId = view.context.resources.getIdentifier(split.last(), "layout", view.context.packageName)
-                    }
-                }
-                setRecyclerAdapterIfNotNull(view, layoutManager, orientation, layoutId, itemCount)
+                setRecyclerAdapterIfNotNull(view, layoutManager, orientation, itemCount)
             }
         })
     }
 
-    private fun setRecyclerAdapterIfNotNull(view: T, layoutManager: RecyclerView.LayoutManager?, orientation: Int?, layoutId: Int?, itemCount: Int?) {
-        if (layoutManager != null && orientation != null && layoutId != null && itemCount != null) {
+    private fun setRecyclerAdapterIfNotNull(view: T, layoutManager: RecyclerView.LayoutManager?, orientation: Int?, itemCount: Int?) {
+        if (layoutManager != null && orientation != null && itemCount != null) {
             view.layoutManager = layoutManager
             if (view.layoutManager is LinearLayoutManager) {
                 (view.layoutManager as LinearLayoutManager).orientation = orientation
             }
-            view.adapter = onRecyclerViewParserListener?.getRecyclerViewAdapter(layoutId, itemCount)
+            view.adapter = onRecyclerViewCallback?.getRecyclerViewAdapter(itemCount)
         }
     }
 }

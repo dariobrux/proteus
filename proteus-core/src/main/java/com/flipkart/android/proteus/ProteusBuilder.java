@@ -60,7 +60,7 @@ public class ProteusBuilder
     {
 
         @Override
-        public void registerWith(ProteusBuilder builder, RecyclerViewParser.OnRecyclerViewParserListener onRecyclerViewParserListener)
+        public void registerWith(ProteusBuilder builder)
         {
 
             // register the default parsers
@@ -73,7 +73,6 @@ public class ProteusBuilder
             builder.register(new FrameLayoutParser());
             builder.register(new ScrollViewParser());
             builder.register(new HorizontalScrollViewParser());
-            builder.register(new RecyclerViewParser(onRecyclerViewParserListener));
             builder.register(new ImageViewParser());
             builder.register(new TextViewParser());
             builder.register(new EditTextParser());
@@ -130,12 +129,7 @@ public class ProteusBuilder
 
     public ProteusBuilder()
     {
-        DEFAULT_MODULE.registerWith(this, null);
-    }
-
-    public ProteusBuilder(RecyclerViewParser.OnRecyclerViewParserListener onRecyclerViewParserListener)
-    {
-        DEFAULT_MODULE.registerWith(this, onRecyclerViewParserListener);
+        DEFAULT_MODULE.registerWith(this);
     }
 
     public ProteusBuilder register(@NonNull String type, @NonNull Map<String, AttributeProcessor> processors)
@@ -171,7 +165,13 @@ public class ProteusBuilder
 
     public ProteusBuilder register(@NonNull Module module)
     {
-        module.registerWith(this, null);
+        module.registerWith(this);
+        return this;
+    }
+
+    public ProteusBuilder registerRecyclerAdapter(RecyclerViewParser.OnRecyclerCallback onRecyclerViewCallback)
+    {
+        register(new RecyclerViewParser(onRecyclerViewCallback));
         return this;
     }
 
@@ -218,7 +218,7 @@ public class ProteusBuilder
         /**
          * @param builder
          */
-        void registerWith(ProteusBuilder builder, RecyclerViewParser.OnRecyclerViewParserListener listener);
+        void registerWith(ProteusBuilder builder);
 
     }
 }
