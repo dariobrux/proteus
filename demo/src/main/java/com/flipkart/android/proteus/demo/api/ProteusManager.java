@@ -27,7 +27,6 @@ import com.flipkart.android.proteus.gson.ProteusTypeAdapterFactory;
 import com.flipkart.android.proteus.support.design.DesignModule;
 import com.flipkart.android.proteus.support.v4.SupportV4Module;
 import com.flipkart.android.proteus.support.v7.CardViewModule;
-import com.flipkart.android.proteus.support.v7.RecyclerViewModule;
 import com.flipkart.android.proteus.value.Layout;
 import com.flipkart.android.proteus.value.ObjectValue;
 
@@ -55,7 +54,6 @@ public class ProteusManager {
     this.api = retrofit.create(ProteusApi.class);
     proteus = new ProteusBuilder()
       .register(SupportV4Module.create())
-      .register(RecyclerViewModule.create())
       .register(CardViewModule.create())
       .register(DesignModule.create())
       .register(new CircleViewParser())
