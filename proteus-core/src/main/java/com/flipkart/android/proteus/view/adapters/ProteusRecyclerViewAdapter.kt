@@ -7,7 +7,7 @@ import com.flipkart.android.proteus.ProteusLayoutInflater
 import com.flipkart.android.proteus.value.Layout
 import com.flipkart.android.proteus.value.ObjectValue
 
-abstract class ProteusRecyclerViewAdapter<T>(
+open class ProteusRecyclerViewAdapter<T>(
         private val proteusLayoutInflater: ProteusLayoutInflater,
         private val layout: Layout,
         private val data: ObjectValue,
@@ -17,9 +17,7 @@ abstract class ProteusRecyclerViewAdapter<T>(
     private var index = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = proteusLayoutInflater.inflate(layout, data, index)
-        index++
-        return ProteusViewHolder(view.asView)
+        return ProteusViewHolder(proteusLayoutInflater.inflate(layout, data, index++).asView)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

@@ -271,6 +271,15 @@ public class ViewParser<V extends View> extends ViewTypeParser<V>
             }
         });
 
+        addAttributeProcessor(Attributes.View.PaddingStart, new DimensionAttributeProcessor<V>()
+        {
+            @Override
+            public void setDimension(V view, float dimension)
+            {
+                view.setPaddingRelative((int) dimension, view.getPaddingTop(), view.getPaddingEnd(), view.getPaddingBottom());
+            }
+        });
+
         addAttributeProcessor(Attributes.View.PaddingTop, new DimensionAttributeProcessor<V>()
         {
             @Override
@@ -286,6 +295,15 @@ public class ViewParser<V extends View> extends ViewTypeParser<V>
             public void setDimension(V view, float dimension)
             {
                 view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), (int) dimension, view.getPaddingBottom());
+            }
+        });
+
+        addAttributeProcessor(Attributes.View.PaddingEnd, new DimensionAttributeProcessor<V>()
+        {
+            @Override
+            public void setDimension(V view, float dimension)
+            {
+                view.setPaddingRelative(view.getPaddingStart(), view.getPaddingTop(), (int) dimension, view.getPaddingBottom());
             }
         });
 

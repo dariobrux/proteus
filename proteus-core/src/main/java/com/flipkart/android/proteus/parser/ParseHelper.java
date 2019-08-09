@@ -319,7 +319,7 @@ public class ParseHelper
     public static boolean parseBoolean(@Nullable Value value)
     {
         // TODO: we should consider 0 as false too.
-        return null != value && value.isPrimitive() && value.getAsPrimitive().isBoolean() ? value.getAsBoolean() : null != value && !value.isNull();
+        return null != value && value.isPrimitive() && value.getAsPrimitive().isBoolean() ? value.getAsBoolean() : null != value && !value.isNull() && Boolean.parseBoolean(value.getAsString());
     }
 
     public static int parseRelativeLayoutBoolean(boolean value)
